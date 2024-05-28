@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 class="text-center my-4">Weather Information</h1>
+    <form method="post" class="form-inline justify-content-center mb-4">
+        <input type="text" name="city" class="form-control mr-2" placeholder="Enter city name" required>
+        <button type="submit" class="btn btn-primary">Get Weather</button>
+    </form>
+
+    {% if weather_data %}
+    <div class="weather-info mt-4">
+        <h2>Current Weather in {{ weather_data.city }}</h2>
+        <p><strong>Temperature:</strong> {{ weather_data.temperature }}°C</p>
+        <p><strong>Pressure:</strong> {{ weather_data.pressure }} hPa</p>
+        <p><strong>Humidity:</strong> {{ weather_data.humidity }}%</p>
+        <p><strong>Weather:</strong> {{ weather_data.weather_description.capitalize() }}</p>
+        <p><strong>Wind Speed:</strong> {{ weather_data.wind_speed }} m/s</p>
+    </div>
+    {% endif %}
+
+    {% if forecast_data %}
+    <div class="forecast-info mt-4">
+        <h2>5-Day Forecast</h2>
+        {% for forecast in forecast_data %}
+        <div class="forecast-day">
+            <p><strong>Date & Time:</strong> {{ forecast.date_time }}</p>
+            <p><strong>Temperature:</strong> {{ forecast.temperature }}°C</p>
+            <p><strong>Pressure:</strong> {{ forecast.pressure }} hPa</p>
+            <p><strong>Humidity:</strong> {{ forecast.humidity }}%</p>
+            <p><strong>Weather:</strong> {{ forecast.weather_description.capitalize() }}</p>
+            <p><strong>Wind Speed:</strong> {{ forecast.wind_speed }} m/s</p>
+            <hr>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+{% endblock %}
